@@ -15,6 +15,7 @@ class Project extends Model
 
     public $fillable = [
         'id',
+        'repository_id',
     ];
 
     // скрытые поля
@@ -26,5 +27,13 @@ class Project extends Model
     public function repository()
     {
         return $this->belongsTo(Repository::class, 'repository_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     */
+    public function subject()
+    {
+        return $this->hasOne(Detail::class, "project_id","id");
     }
 }

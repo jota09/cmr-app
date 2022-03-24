@@ -15,6 +15,8 @@ class Subject extends Model
 
     public $fillable = [
         'id',
+        'repository_id',
+        'project_id'
     ];
 
     // скрытые поля

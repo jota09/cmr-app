@@ -31,17 +31,6 @@ class RespositoryController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-
-    }
-
-    /**
      * Return subject of repository
      *
      * @param  integer  $repositoryID
@@ -85,5 +74,53 @@ class RespositoryController extends Controller
         return $this->repositoryService->showSubjectsProjects($repositoryID,$subjectID);
     }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  integer  $repositoryID
+     * @param  integer  $projectID
+     * @return \Illuminate\Http\Response
+     */
+    public function storageProject($repositoryID,$projectID)
+    {
+        return $this->repositoryService->storageProject($repositoryID,$projectID);
+    }
 
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  integer  $repositoryID
+     * @param  integer  $subjectID
+     * @return \Illuminate\Http\Response
+     */
+    public function storageSubject($repositoryID,$subjectID)
+    {
+        return $this->repositoryService->storageSubject($repositoryID,$subjectID);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  integer  $repositoryID
+     * @param  integer  $projectID
+     * @param  integer  $subjectID
+     * @return \Illuminate\Http\Response
+     */
+    public function storageProjectSubject($repositoryID,$projectID,$subjectID)
+    {
+        return $this->repositoryService->storageProjectSubject($repositoryID,$projectID,$subjectID);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  integer  $repositoryID
+     * @param  integer  $subjectID
+     * @param  integer  $projectID
+     * @return \Illuminate\Http\Response
+     */
+    public function storageSubjectProject($repositoryID,$subjectID,$projectID)
+    {
+        return $this->repositoryService->storageSubjectProject($repositoryID,$subjectID,$projectID);
+    }
 }

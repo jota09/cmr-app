@@ -28,9 +28,9 @@ Route::group([
     Route::get('/repositories/{repositoryID}/projects', 'RespositoryController@showProjects')->name('showProjects');
     Route::get('/repositories/{repositoryID}/projects/{projectID}/subjects', 'RespositoryController@showProjectsSubjects')->name('showProjectsSubjects');
     Route::get('/repositories/{repositoryID}/subjects/{subjectID}/projects', 'RespositoryController@showSubjectsProjects')->name('showSubjectsProjects');
-    Route::post('/repositories/{repositoryID}/projects/{projectID}', 'RespositoryController@storageProject')->name('storageProject');
-    Route::post('/repositories/{repositoryID}/subjects/{subjectID}', 'RespositoryController@storageSubject')->name('storageSubject');
-    Route::post('/repositories/{repositoryID}/projects/{projectID}/subjects/{subjectID}', 'RespositoryController@storageProjectSubject')->name('showProjectsSubjects');
-    Route::post('/repositories/{repositoryID}/subjects/{subjectID}/projects/{projectID}', 'RespositoryController@storageSubjectProject')->name('showSubjectsProjects');
+    Route::match(['get', 'post'], '/repositories/{repositoryID}/projects/{projectID}', 'RespositoryController@storageProject')->name('storageProject');
+    Route::match(['get', 'post'], '/repositories/{repositoryID}/subjects/{subjectID}', 'RespositoryController@storageSubject')->name('storageSubject');
+    Route::match(['get', 'post'], '/repositories/{repositoryID}/projects/{projectID}/subjects/{subjectID}', 'RespositoryController@storageProjectSubject')->name('storageProjectSubject');
+    Route::match(['get', 'post'], '/repositories/{repositoryID}/subjects/{subjectID}/projects/{projectID}', 'RespositoryController@storageSubjectProject')->name('storageSubjectProject');
 });
 

@@ -28,6 +28,18 @@ class SubjectStaging extends Controller
             case 'showSubjectsProjects':
                 return redirect()->route('showSubjectsProjects', $request->toArray());
                 break;
+            case 'storageProject':
+                return redirect()->route('storageProject', $request->toArray());
+                break;
+            case 'storageSubject':
+                return redirect()->route('storageSubject', array_merge($request->toArray(),["_method"=>"POST"]));
+                break;
+            case 'storageProjectSubject':
+                return redirect()->route('storageProjectSubject', array_merge($request->toArray(),["_method"=>"POST"]));
+                break;
+            case 'storageSubjectProject':
+                return redirect()->route('storageSubjectProject', array_merge($request->toArray(),["_method"=>"POST"]));
+                break;
         }
         return abort(404);
     }

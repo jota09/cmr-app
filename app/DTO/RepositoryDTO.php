@@ -32,6 +32,12 @@ class RepositoryDTO extends AbstractPublicDTO
                 });
                 break;
             default:
+                $modelDTO->subjects = $model->subjects->map(function($model) {
+                    return $this->loadFullModel($model);
+                });
+                $modelDTO->projects = $model->projects->map(function($model) {
+                    return $this->loadFullModel($model);
+                });
         }
 
 
