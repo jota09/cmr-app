@@ -22,6 +22,12 @@ class SubjectStaging extends Controller
             case 'showProjects':
                 return redirect()->route('showProjects', $request->toArray());
                 break;
+            case 'showProjectsSubjects':
+                return redirect()->route('showProjectsSubjects', $request->toArray());
+                break;
+            case 'showSubjectsProjects':
+                return redirect()->route('showSubjectsProjects', $request->toArray());
+                break;
         }
         return abort(404);
     }

@@ -40,6 +40,27 @@ class RepositoryService extends AppBaseService
         );
     }
 
+    public function showProjectsSubjects($repositoryID,$projectID)
+    {
+        $result = $this->model->showProjectsSubjects($repositoryID,$projectID);
+
+        return $this->sendResponse(
+            $result['model'],
+            'Repository retrieved successfully'
+        );
+    }
+
+    public function showSubjectsProjects($repositoryID,$subjectID)
+    {
+        $result = $this->model->showSubjectsProjects($repositoryID,$subjectID);
+
+        return $this->sendResponse(
+            $result['model'],
+            'Repository retrieved successfully'
+        );
+    }
+
+    ///////////// luego
     public function store($input)
     {
         $model = Repository::create($input);

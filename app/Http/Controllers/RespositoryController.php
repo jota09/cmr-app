@@ -60,7 +60,29 @@ class RespositoryController extends Controller
      */
     public function showProjects($repositoryID)
     {
-        return $this->repositoryService->showSubject($repositoryID);
+        return $this->repositoryService->showProjects($repositoryID);
+    }
+
+    /**
+     * Return subject of repository
+     *
+     * @param  integer  $repositoryID
+     * @return \Illuminate\Http\Response
+     */
+    public function showProjectsSubjects($repositoryID,$projectID)
+    {
+        return $this->repositoryService->showProjectsSubjects($repositoryID,$projectID);
+    }
+
+    /**
+     * Return subject of repository
+     *
+     * @param  integer  $repositoryID
+     * @return \Illuminate\Http\Response
+     */
+    public function showSubjectsProjects($repositoryID,$subjectID)
+    {
+        return $this->repositoryService->showSubjectsProjects($repositoryID,$subjectID);
     }
 
 

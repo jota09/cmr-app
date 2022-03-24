@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use App\DTO\RepositoryDTO;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -55,7 +56,41 @@ class Repository extends Model
         $modelQuery = self::where('id', '=', "$repositoryID")->orderBy('id');
         $model = $modelQuery->get()
             ->map(function ($model) {
+                return RepositoryDTO::instance()->load($model,'projects');
+            });
+
+        return [
+            'model' => $model
+        ];
+    }
+
+    public function showProjectsSubjects($repositoryID,$projectID)
+    {
+       $modelQuery = self::where('id', '=', "$repositoryID")
+            ->whereHas('projects', function (Builder $query) use ($projectID) {
+                $query->where('id','=', "$projectID");
+            })
+            ->orderBy('id');
+        $model = $modelQuery->get()
+            ->map(function ($model) {
                 return RepositoryDTO::instance()->load($model,'subjects');
+            });
+
+        return [
+            'model' => $model
+        ];
+    }
+
+    public function showSubjectsProjects($repositoryID,$subjectID)
+    {
+       $modelQuery = self::where('id', '=', "$repositoryID")
+            ->whereHas('subjects', function (Builder $query) use ($subjectID) {
+                $query->where('id','=', "$subjectID");
+            })
+            ->orderBy('id');
+        $model = $modelQuery->get()
+            ->map(function ($model) {
+                return RepositoryDTO::instance()->load($model,'projects');
             });
 
         return [

@@ -20,7 +20,6 @@ class RepositoryDTO extends AbstractPublicDTO
     {
 
         $modelDTO = $this->loadFullModel($model);
-
         switch ($meta){
             case 'subjects':
                 $modelDTO->subjects = $model->subjects->map(function($model) {
