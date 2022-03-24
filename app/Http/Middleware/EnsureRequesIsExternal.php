@@ -16,8 +16,6 @@ class EnsureRequesIsExternal
      */
     public function handle($request, Closure $next)
     {
-        dd($request->token);
-
         if ($request->token == env("INTERNALTOKEN")) {
             return $next($request);
         } else {

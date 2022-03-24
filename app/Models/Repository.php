@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\DTO\RepositoryDTO;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -34,5 +35,31 @@ class Repository extends Model
     public function subjects()
     {
         return $this->hasMany(Subject::class,'repository_id', 'id');
+    }
+
+    public function getSubjects($repositoryID)
+    {
+        $modelQuery = self::where('id', '=', "$repositoryID")->orderBy('id');
+        $model = $modelQuery->get()
+            ->map(function ($model) {
+                return RepositoryDTO::instance()->load($model,'subjects');
+            });
+
+        return [
+            'model' => $model
+        ];
+    }
+
+    public function showProjects($repositoryID)
+    {
+        $modelQuery = self::where('id', '=', "$repositoryID")->orderBy('id');
+        $model = $modelQuery->get()
+            ->map(function ($model) {
+                return RepositoryDTO::instance()->load($model,'subjects');
+            });
+
+        return [
+            'model' => $model
+        ];
     }
 }

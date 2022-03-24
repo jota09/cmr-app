@@ -3,10 +3,23 @@
 namespace App\Http\Controllers;
 
 use App\Models\Repository;
+use App\Services\RepositoryService;
 use Illuminate\Http\Request;
 
 class RespositoryController extends Controller
 {
+    protected $repositoryService;
+
+    /**
+     * Create a new BillController instance.
+     *
+     * @return void
+     */
+    public function __construct(RepositoryService $service)
+    {
+        $this->repositoryService = $service;
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -29,36 +42,26 @@ class RespositoryController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Return subject of repository
      *
-     * @param  \App\Models\Repository  $repository
+     * @param  integer  $repositoryID
      * @return \Illuminate\Http\Response
      */
-    public function show(Repository $repository)
+    public function showSubject($repositoryID)
     {
-        //
+        return $this->repositoryService->showSubject($repositoryID);
     }
 
     /**
-     * Update the specified resource in storage.
+     * Return subject of repository
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Repository  $repository
+     * @param  integer  $repositoryID
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Repository $repository)
+    public function showProjects($repositoryID)
     {
-        //
+        return $this->repositoryService->showSubject($repositoryID);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Models\Repository  $repository
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Repository $repository)
-    {
-        //
-    }
+
 }
