@@ -62,42 +62,45 @@ class RepositoryService extends AppBaseService
         );
     }
 
-    public function store($input)
-    {
-        $model = Repository::create($input);
-        if(array_key_exists('rows', $input)) {
-            $modelsAux = Row::find($input['rows']);
-            $model->rows()->saveMany($modelsAux);
-        }
-        return $this->sendResponse(RepositoryDTO::instance()->load($model), 'Repository stored successfully');
-    }
-
     public function storageProject($repositoryID,$projectID)
     {
-        $model = Repository::create(["id"=>$repositoryID]);
+        $model = Repository::firstOrNew(["id"=>$repositoryID]);
         Project::create(["id"=>$projectID, "repository_id"=>$repositoryID]);
         return $this->sendResponse(RepositoryDTO::instance()->load($model,"projects"), 'Repository stored successfully');
     }
 
     public function storageSubject($repositoryID,$subjectID)
     {
-        $model = Repository::create(["id"=>$repositoryID]);
+        $model = Repository::firstOrNew(["id"=>$repositoryID]);
+        foreach ($model->subjects as $subject){
+            if($subject->id == $subjectID)
+                return $this->sendError("Duplicity of subjects inside the same repository is not allowed", 404);
+        }
         Subject::create(["id"=>$subjectID, "repository_id"=>$repositoryID]);
+        $model->refresh();
         return $this->sendResponse(RepositoryDTO::instance()->load($model,"subjects"), 'Repository stored successfully');
     }
 
     public function storageProjectSubject($repositoryID,$projectID,$subjectID)
     {
-        $model = Repository::create(["id"=>$repositoryID]);
-        Project::create(["id"=>$projectID, "repository_id"=>$repositoryID]);
+        $model = Repository::firstOrNew(["id"=>$repositoryID]);
+        $modelProject = Project::firstOrNew(["id"=>$projectID, "repository_id"=>$repositoryID]);
+        foreach ($modelProject->subjects as $subject){
+            if($subject->id == $subjectID)
+                return $this->sendError("Duplicity of subjects inside the same repository is not allowed", 404);
+        }
         Subject::create(["id"=>$subjectID, "repository_id"=>$repositoryID, "project_id" => $projectID]);
         return $this->sendResponse(RepositoryDTO::instance()->load($model,"full"), 'Repository stored successfully');
     }
 
     public function storageSubjectProject($repositoryID,$subjectID,$projectID)
     {
-        $model = Repository::create(["id"=>$repositoryID]);
-        Subject::create(["id"=>$subjectID, "repository_id"=>$repositoryID, "project_id" => $projectID]);
+        $model = Repository::firstOrNew(["id"=>$repositoryID]);
+        foreach ($model->subjects as $subject){
+            if($subject->id == $subjectID)
+                return $this->sendError("Duplicity of subjects inside the same repository is not allowed", 404);
+        }
+        Subject::firstOrNew(["id"=>$subjectID, "repository_id"=>$repositoryID, "project_id" => $projectID]);
         Project::create(["id"=>$projectID, "repository_id"=>$repositoryID]);
         return $this->sendResponse(RepositoryDTO::instance()->load($model,"full"), 'Repository stored successfully');
     }
