@@ -62,4 +62,10 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 
 Steps to set up:
-run -> docker-compose up --build
+docker-compose up --build
+php artisan key:generate
+chown -R www-data:www-data ./storage/logs
+chown -R www-data:www-data ./storage/framework/sessions
+chown -R www-data:www-data ./storage/framework/views
+chown -R www-data:www-data ./storage/framework/cache
+php artisan migrate:fresh --seed

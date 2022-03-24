@@ -2,7 +2,10 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\RespositoryController;
+use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\SubjectController;
+use App\Http\Controllers\SubjectStaging;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -14,6 +17,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+/*
+  Public API Routes
+*/
+
+Route::post('/staging', SubjectStaging::class);
+
+Route::group(['prefix' => 'v1'], function(){
+    Route::resource('repositories', RespositoryController::class);
+    Route::resource('projects', ProjectController::class);
+    Route::resource('subjects', SubjectController::class);
 });
+
