@@ -2,10 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\RespositoryController;
-use App\Http\Controllers\ProjectController;
-use App\Http\Controllers\SubjectController;
-use App\Http\Controllers\SubjectStaging;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -23,9 +20,13 @@ use App\Http\Controllers\SubjectStaging;
 
 Route::post('/staging', SubjectStaging::class);
 
-Route::group(['prefix' => 'v1'], function(){
-    Route::resource('repositories', RespositoryController::class);
-    Route::resource('projects', ProjectController::class);
-    Route::resource('subjects', SubjectController::class);
+Route::group([
+    'middleware' => 'externalapp',
+    'prefix' => 'v1'
+    ], function(){
+    Route::get('/repositories/{repositoryID}/subjects', 'RespositoryController@showSubject')->name('showSubject');
+    Route::get('/repositories/{repositoryID}/projects', 'RespositoryController@showProjects')->name('showProjects');
+    Route::get('/repositories/{repositoryID}/projects/{projectID}/subjects', 'RespositoryController@showProjectsSubjects')->name('showProjectsSubjects');
+    Route::get('/repositories/{repositoryID}/subjects/{subjectID}/projects', 'RespositoryController@showSubjectsProjects')->name('showSubjectsProjects');
 });
 

@@ -14,6 +14,7 @@ class SubjectStaging extends Controller
      */
     public function __invoke(Request $request)
     {
-        dd("Hola");
+        $request->request->add(['token' => env("INTERNALTOKEN")]);
+        return redirect()->route('showSubject', $request->toArray());
     }
 }

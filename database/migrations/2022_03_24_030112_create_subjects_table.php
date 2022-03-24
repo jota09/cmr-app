@@ -15,7 +15,7 @@ class CreateSubjectsTable extends Migration
     {
         Schema::create('subjects', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('projects_id')->nullable()->index();
+            $table->unsignedInteger('project_id')->nullable()->index();
             $table->unsignedInteger('repository_id')->nullable()->index();
             $table->timestamps();
             $table->softDeletes($column = 'deleted_at', $precision = 0);

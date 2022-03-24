@@ -3,6 +3,7 @@
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 
 use App\Models\Repository;
+use App\Models\Project;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
@@ -17,7 +18,8 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(Repository::class, function (Faker $faker) {
+$factory->define(Project::class, function (Faker $faker) {
     return [
+        'repository_id' => Repository::all()->count() ? Repository::all()->random()->id : null
     ];
 });
